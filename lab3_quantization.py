@@ -1,16 +1,14 @@
 """
-Lab 3 - Quantization: Dynamic PTQ, Static PTQ, and ONNX
-
-Course: Big Data at the Edge - Week 3 - Graded: 10%
+Quantization: Dynamic PTQ, Static PTQ, and ONNX
 
 Goal
 ----
-Following the floating-point-representation lecture, this lab applies
+Following the floating-point-representation lecture, this exercise will appliy
 quantization - reducing the numerical precision used to store and compute
-with weights/activations (typically FP32 -> INT8) - to the same CIFAR-10
-MobileNetV2 you worked with in Lab 2.
+with weights/activations (typically FP32 -> INT8) - to the same finetuned CIFAR-10
+MobileNetV2.
 
-You will implement, measure, and compare:
+We will implement, measure, and compare:
 
   1. Dynamic post-training quantization (PTQ) - weights quantized ahead
      of time, activations quantized on the fly at inference. No
@@ -24,7 +22,7 @@ You will implement, measure, and compare:
      itself* with onnxruntime.quantization, which is the more portable
      alternative to exporting an already-quantized PyTorch model.
 
-At each stage, measure model size, accuracy, and CPU latency (int8
+At each stage, we measure model size, accuracy, and CPU latency (int8
 quantized kernels in PyTorch are CPU-only - GPUs are out of scope for the
 quantized models themselves, though a GPU still speeds up training the
 FP32 baseline in Section 1).
@@ -35,22 +33,11 @@ running as a SLURM batch job on DAS-5 (see `submit_lab3_quantization.sbatch`)
 you're working locally/interactively instead, `lab3_quantization.ipynb`
 covers the exact same material and may be more convenient to iterate in.
 
-Fill in every `# TODO` below, then either run this directly:
-    python lab3_quantization.py
-or submit it as a batch job:
+
+to send as a batch job to cluster:
     mkdir -p logs
     sbatch submit_lab3_quantization.sbatch
 
-Deliverables (see Lab-3.pdf for the full grading rubric)
-----------------------------------------------------------
-- This completed script (or the completed notebook).
-- A table comparing FP32 baseline vs. dynamic PTQ vs. static PTQ across
-  size / accuracy / latency.
-- A quantized ONNX model (via the ONNX Runtime quantization route),
-  verified against the FP32 ONNX baseline.
-- Written answers to the reflection questions (in a separate report -
-  see the "Reflection" comments throughout this script for the actual
-  questions).
 """
 from __future__ import annotations
 
